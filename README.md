@@ -31,7 +31,7 @@ docker-compose up
 
 ## Testing
 
-- Similar to migrations, to do so, you'll need to execute testing through docker-compose.
+- Similar to migrations, you'll need to execute testing through docker-compose.
 
   ```
   # run tests
