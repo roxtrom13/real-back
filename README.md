@@ -9,7 +9,7 @@ git clone https://github.com/roxtrom13/real-back.git
 cd real-back
 ```
 
-Build and run the docker image:
+Build and run the containers:
 
 ```
 docker-compose build
