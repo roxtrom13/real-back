@@ -26,8 +26,9 @@ docker-compose up
 
   # migrate
   docker-compose run --rm app sh -c "python manage.py migrate"
-
+  
   ```
+  Migrate command is also executed when you use docker-compose up, so it's not necesary you to execute it.
 
 ## Testing
 
