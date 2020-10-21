@@ -1,5 +1,11 @@
 from django.contrib import admin
-from .models import Document
+from . import models
 
 
-admin.site.register(Document)
+admin.site.register(models.Document)
+admin.site.register(models.Category)
+admin.site.register(models.Download)
+admin.site.register(models.DocumentDetail)
+admin.site.register(models.Subscription)
+admin.site.register(models.Payment)
+admin.site.register(models.UserSubscription)
