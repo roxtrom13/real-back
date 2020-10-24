@@ -9,7 +9,7 @@ git clone https://github.com/roxtrom13/real-back.git
 cd real-back
 ```
 
-Build and run the docker image:
+Build and run the containers:
 
 ```
 docker-compose build
@@ -26,12 +26,13 @@ docker-compose up
 
   # migrate
   docker-compose run --rm app sh -c "python manage.py migrate"
-
+  
   ```
+  Migrate command is also executed when you use docker-compose up, so it's not necesary you to execute it.
 
 ## Testing
 
-- Similar to migrations, to do so, you'll need to execute testing through docker-compose.
+- Similar to migrations, you'll need to execute testing through docker-compose.
 
   ```
   # run tests
