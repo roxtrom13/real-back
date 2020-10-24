@@ -96,9 +96,10 @@ class Subscription(models.Model):
 
 class Payment(models.Model):
     class StatusType(models.TextChoices):
-        IDK = 'DK'
-        WTF = 'WT'
-        XD = 'XD'
+        OK = 'OK'
+        DENIED = 'DN'
+        CANCELLED = 'CN'
+        REFOUNDED = 'RF'
     paypal_id = models.IntegerField()
     status = models.CharField(max_length=2, choices=StatusType.choices)
     amount = models.DecimalField(max_digits=14, decimal_places=2)
