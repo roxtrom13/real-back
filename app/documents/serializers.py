@@ -58,7 +58,8 @@ class DownloadSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Download
-        fields = ['id', 'downloads_number', 'user', 'document']
+        fields = ['id', 'downloads_number',
+                  'free_download', 'user', 'document']
 
 
 class DownloadDetailSerializer(DownloadSerializer):

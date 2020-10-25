@@ -60,7 +60,7 @@ class Download(models.Model):
     document = models.ForeignKey(
         Document, on_delete=models.SET_NULL, null=True, blank=True
     )
-    free_download = models.BooleanField()
+    free_download = models.BooleanField(default=True)
     downloads_number = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

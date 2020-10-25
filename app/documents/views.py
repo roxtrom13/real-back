@@ -1,4 +1,4 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, permissions
 from .models import (Document, Author, Category, Download, DocumentDetail,
                      Subscription, Payment, UserSubscription)
 from documents import serializers
@@ -13,6 +13,22 @@ class UserViewset(viewsets.ModelViewSet):
 class DocumentViewset(viewsets.ModelViewSet):
     queryset = Document.objects.all()
     serializer_class = serializers.DocumentSerializer
+
+    def _params_to_ints(self, qs):
+        return [int(str_id) for str_id in qs.split(',')]
+
+    def get_queryset(self):
+        categories = self.request.query_params.get('categories')
+        authors = self.request.query_params.get('authors')
+        queryset = self.queryset
+        if categories:
+            category_ids = self._params_to_ints(categories)
+            queryset = queryset.filter(categories__id__in=category_ids)
+        if authors:
+            author_ids = self._params_to_ints(authors)
+            queryset = queryset.filter(authors__id__in=author_ids)
+
+        return queryset
 
     def get_serializer_class(self):
         if self.action == 'retrieve':
@@ -33,6 +49,10 @@ class CategoryViewset(viewsets.ModelViewSet):
 class DownloadViewset(viewsets.ModelViewSet):
     queryset = Download.objects.all()
     serializer_class = serializers.DownloadSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return self.queryset.filter(user=self.request.user)
 
     def get_serializer_class(self):
         if self.action == 'retrieve':
