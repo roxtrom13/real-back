@@ -9,21 +9,18 @@ class UserSerializer(serializers.ModelSerializer):
         model = get_user_model()
         fields = ['id', 'username', 'first_name',
                   'last_name', 'email', 'is_superuser']
-        read_only_fields = ['id']
 
 
 class AuthorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Author
         fields = '__all__'
-        read_only_fields = ['id']
 
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = ['id', 'name']
-        read_only_fields = ['id']
 
 
 class DocumentSerializer(serializers.ModelSerializer):
@@ -43,7 +40,6 @@ class DocumentSerializer(serializers.ModelSerializer):
         fields = ['id', 'type', 'name', 'sumary', 'description',
                   'cover', 'document', 'is_active', 'is_premium',
                   'price', 'premium_price', 'user', 'authors', 'categories']
-        read_only_fields = ['id']
 
 
 class DocumentDetailSerializer(DocumentSerializer):
@@ -63,7 +59,6 @@ class DownloadSerializer(serializers.ModelSerializer):
     class Meta:
         model = Download
         fields = ['id', 'downloads_number', 'user', 'document']
-        read_only_fields = ['id']
 
 
 class DownloadDetailSerializer(DownloadSerializer):
@@ -75,21 +70,18 @@ class DocumentDetailedSerializer(serializers.ModelSerializer):
     class Meta:
         model = DocumentDetail
         fields = ['id', 'name', 'value', 'document']
-        read_only_fields = ['id']
 
 
 class SubscriptionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Subscription
         fields = ['id', 'name', 'description', 'price', 'is_active']
-        read_only_fields = ['id']
 
 
 class PaymentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Payment
         fields = ['id', 'paypal_id', 'status', 'amount']
-        read_only_fields = ['id']
 
 
 class UserSubscriptionSerializer(serializers.ModelSerializer):
@@ -107,7 +99,6 @@ class UserSubscriptionSerializer(serializers.ModelSerializer):
         model = UserSubscription
         fields = ['id', 'user', 'subscription',
                   'payment', 'start_date', 'end_date']
-        read_only_fields = ['id']
 
 
 class UserSubscriptionDetailSerializer(UserSubscriptionSerializer):
