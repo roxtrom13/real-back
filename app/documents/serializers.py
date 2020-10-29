@@ -48,9 +48,7 @@ class DocumentDetailSerializer(DocumentSerializer):
 
 
 class DownloadSerializer(serializers.ModelSerializer):
-    user = serializers.PrimaryKeyRelatedField(
-        queryset=get_user_model().objects.all()
-    )
+    user = serializers.ReadOnlyField(source='user.id')
 
     document = serializers.PrimaryKeyRelatedField(
         queryset=Document.objects.all()
@@ -60,6 +58,16 @@ class DownloadSerializer(serializers.ModelSerializer):
         model = Download
         fields = ['id', 'downloads_number',
                   'free_download', 'user', 'document']
+        read_only_fields = ['downloads_number', 'free_download']
+
+    def create(self, validated_data):
+
+        downloads_number = Download.objects.filter(
+            user=validated_data.get('user')).count() + 1
+        free_download = True
+        if downloads_number > 5:
+            free_download = False
+        return Download.objects.create(downloads_number=downloads_number, free_download=free_download, **validated_data)
 
 
 class DownloadDetailSerializer(DownloadSerializer):

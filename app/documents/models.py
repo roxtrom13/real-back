@@ -39,7 +39,7 @@ class Document(models.Model):
     name = models.CharField(max_length=50)
     sumary = models.CharField(max_length=255)
     description = models.CharField(max_length=1024)
-    cover = models.ImageField(upload_to='images/', null=True)
+    cover = models.ImageField(upload_to='images/', null=True, blank=True)
     document = models.FileField(upload_to='documents/', null=True)
     is_active = models.BooleanField()
     is_premium = models.BooleanField()

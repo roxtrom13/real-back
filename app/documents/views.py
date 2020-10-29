@@ -1,4 +1,6 @@
-from rest_framework import viewsets, permissions
+from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import TokenAuthentication
 from .models import (Document, Author, Category, Download, DocumentDetail,
                      Subscription, Payment, UserSubscription)
 from documents import serializers
@@ -8,6 +10,11 @@ from django.contrib.auth import get_user_model
 class UserViewset(viewsets.ModelViewSet):
     queryset = get_user_model().objects.all()
     serializer_class = serializers.UserSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return self.queryset.filter(id=self.request.user.id)
 
 
 class DocumentViewset(viewsets.ModelViewSet):
@@ -49,7 +56,8 @@ class CategoryViewset(viewsets.ModelViewSet):
 class DownloadViewset(viewsets.ModelViewSet):
     queryset = Download.objects.all()
     serializer_class = serializers.DownloadSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         return self.queryset.filter(user=self.request.user)
@@ -58,6 +66,9 @@ class DownloadViewset(viewsets.ModelViewSet):
         if self.action == 'retrieve':
             return serializers.DownloadDetailSerializer
         return self.serializer_class
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
 
 class DocumentDetailViewset(viewsets.ModelViewSet):
@@ -78,6 +89,11 @@ class PaymentViewset(viewsets.ModelViewSet):
 class UserSubscriptionViewset(viewsets.ModelViewSet):
     queryset = UserSubscription.objects.all()
     serializer_class = serializers.UserSubscriptionSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return self.queryset.filter(user=self.request.user)
 
     def get_serializer_class(self):
         if self.action == 'retrieve':
