@@ -9,6 +9,7 @@ class UserSerializer(serializers.ModelSerializer):
         model = get_user_model()
         fields = ['id', 'username', 'first_name',
                   'last_name', 'email', 'is_superuser']
+        read_only_fields = ['is_superuser']
 
 
 class AuthorSerializer(serializers.ModelSerializer):
