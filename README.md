@@ -1,6 +1,6 @@
 # Ecommerce backend
 
-Backend for Lake's final project :)
+Backend for BookStore project :)
 
 ## Instalation
 
